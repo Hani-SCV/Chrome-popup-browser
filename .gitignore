@@ -1,0 +1,30 @@
+# STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+.run/
+out/
+
+# VS Code
+.vscode/launch.json
+
+# node
+node_modules/
+
+.DS_Store
+.tool-versions
+.env
+.env.*
+
+# build
+dist
