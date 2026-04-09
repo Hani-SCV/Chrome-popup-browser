@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "manifest_version": 3,
   "description": "It is a Chrome browser extension that displays a small window for office workers.",
-  "permissions": ["storage", "tabs", "sidePanel"],
+  "permissions": ["storage", "tabs", "sidePanel", "debugger"],
   "background": {
     "service_worker": "background.js"
   },
