@@ -40,20 +40,41 @@ export default function App() {
     saveBookmarks(newB);
   };
 
+  const addCurrentTab = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tab = tabs[0];
+      if (!tab?.url) return;
+
+      const newB = [...bookmarks, { name: tab.title || 'no-title', url: tab.url }];
+      saveBookmarks(newB);
+    });
+  };
+
   return (
     <div className="p-4 space-y-2 w-64">
-      <h1 className="text-lg font-bold">즐겨찾기</h1>
+      <h1 className="text-lg font-bold">Bookmarks</h1>
 
       <div className="flex flex-col gap-1">
         <input
           className="border p-1 rounded"
-          placeholder="이름"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <input className="border p-1 rounded" placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} />
+        <input
+          className="border p-1 rounded"
+          placeholder="URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') addBookmark();
+          }}
+        />
+        <button className="bg-green-500 text-white p-1 rounded" onClick={addCurrentTab}>
+          Add Current Page
+        </button>
         <button className="bg-blue-500 text-white p-1 rounded" onClick={addBookmark}>
-          추가
+          Add
         </button>
       </div>
 
@@ -64,7 +85,7 @@ export default function App() {
               {b.name}
             </button>
             <button className="text-red-500" onClick={() => removeBookmark(i)}>
-              삭제
+              Delete
             </button>
           </div>
         ))}
